@@ -1,4 +1,4 @@
-// This is a header component, we should import it on the Main file (app)
+// This is a header component, we should import it on the App function (our main component)
 
 function Header() {
     return(
