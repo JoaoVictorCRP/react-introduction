@@ -1,15 +1,13 @@
-import Header from "./Header.tsx";
-import Footer from "./Footer.tsx";
-import Food from "./Food.tsx";
+import Card from "./Card.tsx";
 
 function App() {
   return(
-    /*This is a fragment, we can use it to return multiple element in one component, in this case "App"*/ 
-    <>  
-      <Header/>
-      <Food/>
-      <Footer/>
+    <>
+      <Card/>
+      <Card/>
+      <Card/>
     </>
+
   );
 }
 
