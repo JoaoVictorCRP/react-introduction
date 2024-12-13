@@ -1,0 +1,9 @@
+.buttonModule {
+    background-color: hsl(80, 100%, 60%);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid black;
+    cursor: pointer;
+    margin: 2px;
+  }
