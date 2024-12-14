@@ -6,16 +6,13 @@
 
 // <Component key=value />
 
-import Student from "./Student/StudentCard.tsx";
+import UserGreeting from "./UserGreeting/UserGreeting";
 
 function App() {
   return(
     <>
-      <Student name="Bob Esponja" age={25}/>
-      <Student name="Patrick" age={30}/>
-      <Student name="Lula Molusco" age={40}/>
-      <Student name="Sandy Bochechas" age={28}/>
-      <Student/>
+      <UserGreeting isLoggedIn={true} username="JoaoVictor"/>
+      {/* <UserGreeting/> */}
     </>
   );
 }
