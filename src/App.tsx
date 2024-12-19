@@ -1,8 +1,8 @@
-import List from "./List";
+import Button from "./Button.tsx";
 
 function App() {
   return(
-    <List/>
+    <Button/>
   );
 }
 
