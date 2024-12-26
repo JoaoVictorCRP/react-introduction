@@ -2,32 +2,32 @@
 //            such as <input>, <textarea>, <select>, <radio>.
 //            It triggers a function every time the value of the input changes
 
-import { ChangeEventHandler, useState } from "react";
+import React, { useState } from "react";
 
 function Container() {
     const [name, setName] = useState<string>("");
-    const [quantity, setQuantity] = useState<number>(0);
+    const [quantity, setQuantity] = useState<string>("");
     const [comment, setComment] = useState<string>("");
     const [payment, setPayment] = useState<string>("N/A");
     const [shipping, setShipping] = useState<string>("retirar");
 
-    const handleNameChange = (event) => {
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
     }
 
-    const handleQuantityChange = (event) => {
+    const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuantity(event.target.value)
     }
 
-    const handleCommentChange = (event) => {
+    const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setComment(event.target.value)
     }
 
-    const handlePaymentChange = (event) => {
+    const handlePaymentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setPayment(event.target.value)
     }
 
-    const handleShippingChange = (event) => {
+    const handleShippingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setShipping(event.target.value)
     }
 
