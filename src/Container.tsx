@@ -1,40 +1,72 @@
-import {useState} from "react";
+// onChange = event gandler user primary with form elements
+//            such as <input>, <textarea>, <select>, <radio>.
+//            It triggers a function every time the value of the input changes
+
+import { ChangeEventHandler, useState } from "react";
 
 function Container() {
-    const [name, setName] = useState<string>("Anônimo");
-    const [age, setAge] = useState<number>(18);
-    const [isEmployed, setEmployed] = useState<boolean>(true);
+    const [name, setName] = useState<string>("");
+    const [quantity, setQuantity] = useState<number>(0);
+    const [comment, setComment] = useState<string>("");
+    const [payment, setPayment] = useState<string>("N/A");
+    const [shipping, setShipping] = useState<string>("retirar");
 
-
-    const updateName = () => {
-        const newName = prompt('Insira seu nome:') || name;
-        setName(newName);
+    const handleNameChange = (event) => {
+        setName(event.target.value)
     }
 
-    const increaseAge = () => {
-        setAge(age + 1);
+    const handleQuantityChange = (event) => {
+        setQuantity(event.target.value)
     }
 
-    const decreaseAge = () => {
-        setAge(age - 1);
+    const handleCommentChange = (event) => {
+        setComment(event.target.value)
     }
 
-    const ToggleEmployment = () => {
-        setEmployed(!isEmployed)
+    const handlePaymentChange = (event) => {
+        setPayment(event.target.value)
     }
+
+    const handleShippingChange = (event) => {
+        setShipping(event.target.value)
+    }
+
 
     return (
         <div>
-            <p>Nome: {name}</p>
-            <button onClick={updateName}>Alterar nome</button>
-        
-            <p>Age: {age}</p>
-            <button onClick={decreaseAge}>Rejuvenescer -</button>
-            <button onClick={increaseAge}>Envelhecer +</button>
-            
+            <input type="text" value={name} onChange={handleNameChange}/>
+            <p> {name ? `Olá, ${name}! Como vai você?`: "Qual seu nome?"}</p>
 
-            <p>Empregado: {isEmployed ? "Sim" : "Não"}</p>
-            <button onClick={ToggleEmployment}>Alterar vínculo</button>
+            <input type="number" value={quantity} onChange={handleQuantityChange}/>
+            <p>Quantidade de pedidos: {quantity}</p>
+
+            <textarea value={comment} onChange={handleCommentChange} placeholder="Insira as intruções de entrega."></textarea>
+            <p>Instruções de Entrega: {comment}</p>
+
+            <select value={payment} onChange={handlePaymentChange}>
+                <option value="N/A" defaultChecked>Selecione uma opção</option>
+                <option value="credito">Cartão de Crédito</option>
+                <option value="debito">Cartão de Débito</option>
+                <option value="pix">Pix</option>
+                <option value="gpay">Google Pay</option>
+            </select>
+            <p>Método de pagamento: {payment}</p>
+
+            <label>
+                <input type="radio" value="retirar" checked={shipping==='retirar'} onChange={handleShippingChange}/>
+                Retirar na loja      
+            </label>
+            <label>
+                <input type="radio" value="entregar" checked={shipping==='entregar'} onChange={handleShippingChange}/>
+                Entregar no endereço
+            </label>
+
+            <p>Opção de entrega: {
+                shipping==='entregar'? 
+                    'Entregar no endereço (Prazo: 7 dias úteis).' : 
+                    'Retirar na loja (Prazo: 1 dia útil).'
+                }
+            </p>
         </div>
     );
 }
