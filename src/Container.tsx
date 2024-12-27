@@ -1,74 +1,49 @@
-// onChange = event gandler user primary with form elements
-//            such as <input>, <textarea>, <select>, <radio>.
-//            It triggers a function every time the value of the input changes
+// update function = A function passed as an argument to setState() usually
+//                   ex: setYear(arrow fucntion)
+//                   Allow for safe updates BASED ON THE PREVIOUS UPDATE
+//                   Used with multiple state updates and asynchronous functions
+//                   TIP: It is a good practice to use update functions whenever possible
 
-import React, { useState } from "react";
 
+// Let's update or previous component with an update function
+
+import {useState} from "react";
 function Container() {
-    const [name, setName] = useState<string>("");
-    const [quantity, setQuantity] = useState<string>("");
-    const [comment, setComment] = useState<string>("");
-    const [payment, setPayment] = useState<string>("N/A");
-    const [shipping, setShipping] = useState<string>("retirar");
-
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
+    const [name, setName] = useState<string>("Anônimo");
+    const [age, setAge] = useState<number>(18);
+    const [isEmployed, setEmployed] = useState<boolean>(true);
+    const updateName = () => {
+        const newName = prompt('Insira seu nome:') || name;
+        setName(newName);
     }
+    const increaseAge = () => {
+        
 
-    const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuantity(event.target.value)
+        setAge(prevAge => prevAge+1); // React documentation recommends to use " prevName " for the previous state, or...
+        setAge(prevAge => prevAge+1);
+        setAge(prevAge => prevAge+1);
+
+        // Update functions are passed as queues to the React library, so it will execute each one of the functions above
+        // in a FIFO scheme. Finally, we will have incremented +3 on the original value.
     }
-
-    const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setComment(event.target.value)
+    const decreaseAge = () => {
+        setAge(a => a-1);  // The variable's first letter, in our case, "a". 
     }
-
-    const handlePaymentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setPayment(event.target.value)
+    const ToggleEmployment = () => {
+        setEmployed(!isEmployed);
     }
-
-    const handleShippingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setShipping(event.target.value)
-    }
-
-
     return (
         <div>
-            <input type="text" value={name} onChange={handleNameChange}/>
-            <p> {name ? `Olá, ${name}! Como vai você?`: "Qual seu nome?"}</p>
-
-            <input type="number" value={quantity} onChange={handleQuantityChange}/>
-            <p>Quantidade de pedidos: {quantity}</p>
-
-            <textarea value={comment} onChange={handleCommentChange} placeholder="Insira as intruções de entrega."></textarea>
-            <p>Instruções de Entrega: {comment}</p>
-
-            <select value={payment} onChange={handlePaymentChange}>
-                <option value="N/A" defaultChecked>Selecione uma opção</option>
-                <option value="credito">Cartão de Crédito</option>
-                <option value="debito">Cartão de Débito</option>
-                <option value="pix">Pix</option>
-                <option value="gpay">Google Pay</option>
-            </select>
-            <p>Método de pagamento: {payment}</p>
-
-            <label>
-                <input type="radio" value="retirar" checked={shipping==='retirar'} onChange={handleShippingChange}/>
-                Retirar na loja      
-            </label>
-            <label>
-                <input type="radio" value="entregar" checked={shipping==='entregar'} onChange={handleShippingChange}/>
-                Entregar no endereço
-            </label>
-
-            <p>Opção de entrega: {
-                shipping==='entregar'? 
-                    'Entregar no endereço (Prazo: 7 dias úteis).' : 
-                    'Retirar na loja (Prazo: 1 dia útil).'
-                }
-            </p>
+            <p>Nome: {name}</p>
+            <button onClick={updateName}>Alterar nome</button>
+        
+            <p>Age: {age}</p>
+            <button onClick={decreaseAge}>Rejuvenescer -</button>
+            <button onClick={increaseAge}>Envelhecer +</button>
+            
+            <p>Empregado: {isEmployed ? "Sim" : "Não"}</p>
+            <button onClick={ToggleEmployment}>Alterar vínculo</button>
         </div>
     );
 }
-
 export default Container;
