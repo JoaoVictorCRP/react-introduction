@@ -1,20 +1,33 @@
-import React, {useState} from "react";
-import Car from "./Car/Car";
+import{useState} from "react";
+
+// Updating ARRAYS in state
 
 function Container() {
-    const [car, setCar] = useState<Car>(new Car('Ford', 'Mustang', '2024'))
+    const [foods, setFoods] = useState<Array<string>>(["Maçã", "Laranja", "Banana"]);
 
-    const handleManufacturerChange = (event:React.ChangeEvent<HTMLInputElement>) => setCar(prevCar => new Car(event.target.value, prevCar.model, prevCar.year));
-    const handleModelChange = (event:React.ChangeEvent<HTMLInputElement>) => setCar(prevCar => new Car(prevCar.manufacturer, event.target.value, prevCar.year));
-    const handleYearChange = (event:React.ChangeEvent<HTMLInputElement>) => setCar(prevCar => new Car(prevCar.manufacturer, prevCar.model, event.target.value));
+    function handleAddFood (){
+        const newFood:string = (document.getElementById("foodInput") as HTMLInputElement).value; // Casting variable type
+        (document.getElementById("foodInput") as HTMLInputElement).value = '';
+        setFoods(prevFoods => [...prevFoods, newFood])
+    }
+
+    function handleRemoveFood (index:number){
+        setFoods(prevFoods => prevFoods.filter((_element, i) => i !== index)) // Argument with underscore means "ignore it". In this case, we shall only use the index to filter the deleted item.
+    }
+
     return(
-        <div>
-            <p>Seu carro favorito é: {car.manufacturer} {car.model} {car.year}</p>
-
-            <input type="text" value={car.manufacturer} onChange={handleManufacturerChange}/> <br/>
-            <input type="text" value={car.model} onChange={handleModelChange}/> <br/>
-            <input type="text" value={car.year} onChange={handleYearChange}/> <br/>
-        </div>
+        <>
+            <h1>Lista de Frutas</h1>
+            <ul>
+                {foods.map((food, index) => 
+                    <li key={index} onClick={() => handleRemoveFood(index)}>
+                        {food}
+                    </li>)
+                }
+            </ul>
+            <input type="text" id="foodInput" placeholder="Digite o nome da fruta"/>
+            <button onClick={handleAddFood}>Adicionar fruta</button>
+        </>
     );
 }
 export default Container;
