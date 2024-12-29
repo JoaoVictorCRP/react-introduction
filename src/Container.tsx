@@ -1,32 +1,55 @@
 import{useState} from "react";
 
-// Updating ARRAYS in state
+// Updating ARRAY of OBJECTS in State
 
 function Container() {
-    const [foods, setFoods] = useState<Array<string>>(["Maçã", "Laranja", "Banana"]);
+    const [games, setGames] = useState<Array<object>>([]);
+    const [gameName, setGameName] = useState<string>("");
+    const [gameProducer, setGameProducer] = useState<string>("");
+    const [gameYear, setGameYear] = useState<string>("");
 
-    function handleAddFood (){
-        const newFood:string = (document.getElementById("foodInput") as HTMLInputElement).value; // Casting variable type
-        (document.getElementById("foodInput") as HTMLInputElement).value = '';
-        setFoods(prevFoods => [...prevFoods, newFood])
+    function handleAddGame(){
+        const newGame = {
+            name: gameName,
+            producer: gameProducer,
+            year: gameYear
+        };
+        setGames(games => [...games, newGame]);
+
+        // Setting input boxes to be null
+        setGameName("");
+        setGameProducer("");
+        setGameYear("");
     }
 
-    function handleRemoveFood (index:number){
-        setFoods(prevFoods => prevFoods.filter((_element, i) => i !== index)) // Argument with underscore means "ignore it". In this case, we shall only use the index to filter the deleted item.
+    function handleRemoveGame(index:number) {
+        setGames(games.filter((_element, i) => i!==index));
     }
+
+    function handleNameChange(event:React.ChangeEvent<HTMLInputElement>){
+        setGameName(event.target.value);
+    };
+    
+    function handleProducerChange(event:React.ChangeEvent<HTMLInputElement>){
+        setGameProducer(event.target.value);
+    };
+
+    function handleYearChange(event:React.ChangeEvent<HTMLInputElement>){
+        setGameYear(event.target.value);
+    };
 
     return(
         <>
-            <h1>Lista de Frutas</h1>
+            <h1>Lista de Jogos</h1>
+
             <ul>
-                {foods.map((food, index) => 
-                    <li key={index} onClick={() => handleRemoveFood(index)}>
-                        {food}
-                    </li>)
-                }
+                {games.map((element, index) => <li key={index} onClick={() => handleRemoveGame(index)}> Nome: {element.name} - Produtora: {element.producer} - Ano: {element.year}</li>)}
             </ul>
-            <input type="text" id="foodInput" placeholder="Digite o nome da fruta"/>
-            <button onClick={handleAddFood}>Adicionar fruta</button>
+
+            <input type="text" id="gameNameInput" placeholder="Digite o nome do jogo" value={gameName} onChange={handleNameChange}/> <br/>
+            <input type="text" id="gameProducerInput" placeholder="Digite o nome da produtora" value={gameProducer} onChange={handleProducerChange}/> <br/>
+            <input type="number" id="gameYearInput" placeholder="Digite o ano de lançamento" value={gameYear} onChange={handleYearChange}/> <br/>    
+            <button onClick={handleAddGame}>Adicionar jogo</button>
         </>
     );
 }
