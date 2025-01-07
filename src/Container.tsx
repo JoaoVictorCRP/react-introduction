@@ -25,7 +25,6 @@ import { useEffect, useState } from "react";
 
 function Container() {
 
-<<<<<<< HEAD
     const [count, setCount] = useState(0);
     const [color, setColor] = useState("green");
    
@@ -52,13 +51,6 @@ function Container() {
 
     useEffect(() => { // UseEffect is pretty interesting if you want to keep your code organized and more clear, since this block of code will be explicit written to be run based on one or more values or components.
         document.title = `Você clicou ${count} vezes | Cor: ${color}`;
-=======
-    const [count, setCount] = useState(0)
-    const [color, setColor] = useState("green")
-
-    useEffect(() => { // UseEffect is pretty interesting if you want to keep your code organized and more clear, since this block of code will be explicit written to be run based on one or more values or components.
-        document.title = `Você clicou ${count} vezes | Cor: ${color}`
->>>>>>> f403d28b01a54e7de7dd98bd841ec7e1e1500060
 
         // return () => {
             // You can use the return statement inside useEffect to do a Clean UP on a DOM element.
@@ -70,16 +62,12 @@ function Container() {
     }
 
     function changeColor(){
-<<<<<<< HEAD
         setColor(c => c === "green" ? "yellow" : "green");
     }
 
     function handleResize(){
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
-=======
-        setColor(c => c === "green" ? "yellow" : "green")
->>>>>>> f403d28b01a54e7de7dd98bd841ec7e1e1500060
     }
 
     return(
@@ -87,12 +75,9 @@ function Container() {
             <p style={{color: color}}>Contagem de Cliques: {count}</p>
             <button onClick={addCount}>Clique aqui!</button>
             <button onClick={changeColor}>Mudar cor</button>
-<<<<<<< HEAD
 
             <p>Largura da janela: {width}px</p>
             <p>Tamanho da janela: {height}px</p>
-=======
->>>>>>> f403d28b01a54e7de7dd98bd841ec7e1e1500060
         </>
     );
 }
