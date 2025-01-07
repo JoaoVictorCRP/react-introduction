@@ -1,55 +1,54 @@
-import{useState} from "react";
+// useEffect() = React Hook that tells React DO SOME CODE WHEN (chose one)...
+//               - This component re-renders
+//               - This component mounts (component is added to the DOM)
+//               - The state of a value changes.
 
-// Updating ARRAY of OBJECTS in State
+
+// useEffect(function, [dependencies])
+
+// 1. useEffect ( () => {} )            // Runs after every re-render
+// 2. useEffect ( () => {}, [] )        // Runs only on mount (run & done)
+// 3. useEffect ( () => {}, [value])    // Runs on mount + when value changes
+
+
+// USES
+// #1 Event Listeners
+// #2 DOM manipulation
+// #3 Subscriptions (real-time updates)
+// #4 Fetching Data from an API
+// #5 Clean up when a component unmounts (component is removed from the DOM)
+
+// PS: Understand "useEffect" in React as "useSideCode".
+
+
+import { useEffect, useState } from "react";
 
 function Container() {
-    const [games, setGames] = useState<Array<object>>([]);
-    const [gameName, setGameName] = useState<string>("");
-    const [gameProducer, setGameProducer] = useState<string>("");
-    const [gameYear, setGameYear] = useState<string>("");
 
-    function handleAddGame(){
-        const newGame = {
-            name: gameName,
-            producer: gameProducer,
-            year: gameYear
-        };
-        setGames(games => [...games, newGame]);
+    const [count, setCount] = useState(0)
+    const [color, setColor] = useState("green")
 
-        // Setting input boxes to be null
-        setGameName("");
-        setGameProducer("");
-        setGameYear("");
+    useEffect(() => { // UseEffect is pretty interesting if you want to keep your code organized and more clear, since this block of code will be explicit written to be run based on one or more values or components.
+        document.title = `Você clicou ${count} vezes | Cor: ${color}`
+
+        // return () => {
+            // You can use the return statement inside useEffect to do a Clean UP on a DOM element.
+        // }
+    })
+
+    function addCount(){
+        setCount(c => c+1);
     }
 
-    function handleRemoveGame(index:number) {
-        setGames(games.filter((_element, i) => i!==index));
+    function changeColor(){
+        setColor(c => c === "green" ? "yellow" : "green")
     }
-
-    function handleNameChange(event:React.ChangeEvent<HTMLInputElement>){
-        setGameName(event.target.value);
-    };
-    
-    function handleProducerChange(event:React.ChangeEvent<HTMLInputElement>){
-        setGameProducer(event.target.value);
-    };
-
-    function handleYearChange(event:React.ChangeEvent<HTMLInputElement>){
-        setGameYear(event.target.value);
-    };
 
     return(
         <>
-            <h1>Lista de Jogos</h1>
-
-            <ul>
-                {games.map((element, index) => <li key={index} onClick={() => handleRemoveGame(index)}> Nome: {element.name} - Produtora: {element.producer} - Ano: {element.year}</li>)}
-            </ul>
-
-            <input type="text" id="gameNameInput" placeholder="Digite o nome do jogo" value={gameName} onChange={handleNameChange}/> <br/>
-            <input type="text" id="gameProducerInput" placeholder="Digite o nome da produtora" value={gameProducer} onChange={handleProducerChange}/> <br/>
-            <input type="number" id="gameYearInput" placeholder="Digite o ano de lançamento" value={gameYear} onChange={handleYearChange}/> <br/>    
-            <button onClick={handleAddGame}>Adicionar jogo</button>
+            <p style={{color: color}}>Contagem de Cliques: {count}</p>
+            <button onClick={addCount}>Clique aqui!</button>
+            <button onClick={changeColor}>Mudar cor</button>
         </>
     );
 }
