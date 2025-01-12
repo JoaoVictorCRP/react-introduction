@@ -67,6 +67,7 @@ button:focus-visible {
   }
 }
 
-table, th, td {
-  border: 1px solid;
+.box {
+  border: 3px solid;
+  padding: 25px;
 }
