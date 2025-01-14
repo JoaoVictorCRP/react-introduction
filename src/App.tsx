@@ -1,22 +1,14 @@
-// useContext() => React Hook that allows you to share values 
-//                 between multiple levels of components
-//                 without passing props through each level.
-//                 Very cool, basically, one component can USE the CONTEXT of its another fellow component
+// useState() => Re-renders the component when the state value changes.
 
+// useRef() => "use Reference" DOES NOT CAUSE THE RE-RENDER WHEN THE VALUE CHANGES.
+//              It is used When you want a component to "remember" some information,
+//              BUT you don't want that information to trigger new renders.
 
-// PROVIDER COMPONENT
-// 1. import { createContext } from 'react';
-// 2. export const MyContext = createContext();
-// 3. <MyContext.Provider value={value}>
-//        <Child/>
-//    <MyContext.Provider>
+//              1.  Accessing/Interacting with DOM elements.
+//              2.  Handling Focus, Animations and Transitions.
+//              3.  Managing Timers and Intervals
 
-// CONSUMER COMPONENT
-// 1. import { useContext } from 'react';
-//    import { MyContext } from './ComponentA';
-// 2. const value = useContext(MyContext);s
-
-import ComponentA from "./assets/ComponentA";
+import ComponentA from "./assets/ComponentA.tsx";
 
 function App() {
   return(<ComponentA/>);
